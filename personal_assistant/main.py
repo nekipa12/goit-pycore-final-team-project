@@ -6,6 +6,13 @@ from personal_assistant.notebook import NoteBook
 from personal_assistant.registry import COMMANDS
 from personal_assistant.storage import load_data, save_data
 
+try:
+    # On macOS and Linux this makes the arrow keys work in input().
+    import readline  # noqa: F401
+except ImportError:
+    # Windows has no such module: its console edits the line itself.
+    pass
+
 EXIT_COMMANDS = ("close", "exit")
 
 
@@ -43,21 +50,19 @@ def main() -> None:
     """Run the assistant until the user types 'exit' or 'close'."""
     book, notes = load_data()
     print("Welcome to the assistant bot! Type 'help' to see all commands.")
-    while True:
-        try:
-            user_input = input("Enter a command: ")
-        except (EOFError, KeyboardInterrupt):
-            # Ctrl+D or Ctrl+C: leave the same way as the 'exit' command.
-            print()
-            user_input = "exit"
-        command, args = parse_input(user_input)
-        if not command:
-            continue
-        if command in EXIT_COMMANDS:
-            print("Good bye!")
-            break
-        print(execute(command, args, book, notes))
-        save_data(book, notes)
+    try:
+        while True:
+            command, args = parse_input(input("Enter a command: "))
+            if not command:
+                continue
+            if command in EXIT_COMMANDS:
+                break
+            print(execute(command, args, book, notes))
+            save_data(book, notes)
+    except (EOFError, KeyboardInterrupt):
+        # Ctrl+D or Ctrl+C: leave like 'exit'; the data is already saved.
+        print()
+    print("Good bye!")
 
 
 if __name__ == "__main__":

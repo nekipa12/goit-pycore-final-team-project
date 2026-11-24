@@ -14,10 +14,14 @@ DATA_FILE = Path.home() / ".personal_assistant" / "data.pkl"
 
 def save_data(book: AddressBook, notes: NoteBook) -> None:
     """Save the address book and the notebook to the data file."""
+    # Write a new file first and then put it in place of the old one:
+    # if writing fails, the old data stays untouched.
+    temp_file = DATA_FILE.with_name(DATA_FILE.name + ".tmp")
     try:
         DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
-        with open(DATA_FILE, "wb") as file:
+        with open(temp_file, "wb") as file:
             pickle.dump((book, notes), file)
+        temp_file.replace(DATA_FILE)
     except OSError as error:
         # No rights, full disk: tell the user and let the program go on.
         print(f"Could not save the data: {error}")

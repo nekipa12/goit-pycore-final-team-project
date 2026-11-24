@@ -8,9 +8,9 @@ in this folder; this file holds what all tasks share.
 A command-line "Personal assistant": an address book and a notebook.
 The user types a command, the assistant answers, and so on until `exit`.
 
-It is the bot from the homework, grown up: the same `Field`, `Record`,
+It is the bot from the homework, made bigger: the same `Field`, `Record`,
 `AddressBook`, the same `add <name> <phone>` style of commands. We add
-email, address, search, deletion, birthdays for any number of days, notes
+email, address, search, deletion, birthdays for a given number of days, notes
 with tags, storage in the user's home folder and installation as a
 package.
 
@@ -32,6 +32,8 @@ command is written, the program answers
 
 ```
 personal_assistant/
+  __init__.py          the package                                       (finished)
+  __main__.py          starts main() for `python -m personal_assistant`  (finished)
   main.py              the loop: read a command, run it, print, save     (finished)
   registry.py          the table of commands, the @command decorator     (finished)
   storage.py           load_data() and save_data(): one pickle file      (finished)
@@ -51,20 +53,24 @@ personal_assistant/
 
 Every card lists its files and, inside a file, its functions. Nobody
 else works there, so two people never change the same lines. To keep it
-so:
+that way:
 
 - Do not change the files marked "finished".
 - Do not change usage lines, function names, parameters or docstrings.
   `help` prints the first line of a handler's docstring.
 - If you need a helper function, put it right above the function that
   uses it, never at the end of a file.
+- Do not add imports: every file already imports what its cards need.
+  The two exceptions are written in `field-validation.md` and
+  `help-command.md`.
 - Do not add attributes to `Record`, `Note` or the books and do not
   rename classes or modules: the saved data file depends on them.
 
 ## 3. How a command is written
 
-A command is one function with the `@command` decorator. This is a
-finished one from `commands/contacts.py`:
+A command is one function with the `@command` decorator; in these
+documents such a function is called a handler. This is a finished one
+from `commands/contacts.py`:
 
 ```python
 @command("add <name> <phone>")
@@ -126,7 +132,21 @@ command answers with an error, the data must stay exactly as it was.
 
 The loop also catches every other exception and prints
 `Unexpected error: ...`, so a bug in one command cannot close the
-program. That is a safety net, not a way to report errors.
+program. That is protection against bugs, not a way to report errors.
+
+What happens when the user types `add-email John abc`:
+
+1. `main()` reads the line with `input()`.
+2. `parse_input` splits it: the command `add-email`, the arguments
+   `["John", "abc"]`.
+3. `execute` finds the handler in `COMMANDS` and checks that there are
+   enough arguments.
+4. The handler `add_email` calls `book.find("John")` and then
+   `record.add_email("abc")`.
+5. `Record.add_email` creates `Email("abc")`; the class sees a wrong
+   value and raises `ValueError("Invalid email abc. ...")`.
+6. `execute` catches it and returns the text; `main()` prints it and
+   saves the data.
 
 ## 5. The data
 
@@ -213,9 +233,10 @@ tag in lower case and `<days>` is the number, not the text as typed:
 | no such contact | `Contact <name> not found.` |
 | the contact has no such phone | `Phone <phone> not found.` |
 | the contact already has this phone | `Phone <phone> already exists.` |
+| a name without letters | `Name must have at least one letter.` |
 | a wrong phone | `Invalid phone number <phone>. Use 10 digits, for example 0501234567.` |
 | a wrong email | `Invalid email <email>. Use the form name@example.com.` |
-| a wrong date | `Invalid date format. Use DD.MM.YYYY.` |
+| a wrong date | `Invalid date. Use DD.MM.YYYY, for example 24.08.1991.` |
 | a birthday before 1900 or in the future | `Birthday must be between 01.01.1900 and today.` |
 | a wrong number of days | `Days must be a number from 0 to 365.` |
 | no such note | `Note <id> not found.` |
@@ -228,9 +249,9 @@ A contact is printed as
 
 ## 7. How to check your work
 
-Every spec ends with "Check it": what to type and what the assistant
-must answer (the welcome line is left out). Start the assistant from the
-project folder:
+Every task spec has a "Check it" part: what to type and what the
+assistant must answer (the welcome line is left out). Start the
+assistant from the project folder:
 
 ```bash
 python -m personal_assistant

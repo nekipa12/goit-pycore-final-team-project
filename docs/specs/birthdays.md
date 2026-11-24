@@ -62,7 +62,7 @@ Contact added.
 Enter a command: add-birthday John 27.11.1990
 Birthday saved.
 Enter a command: add-birthday John 2026-11-27
-Invalid date format. Use DD.MM.YYYY.
+Invalid date. Use DD.MM.YYYY, for example 24.08.1991.
 Enter a command: birthdays 2
 No birthdays in the next 2 days.
 Enter a command: birthdays 3

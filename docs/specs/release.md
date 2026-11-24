@@ -13,25 +13,30 @@
 The Team Lead's last card: make sure that the whole thing works as one
 product, the way the mentor will check it.
 
-1. **No stubs.** `NotImplementedError` is not found anywhere in
+1. **No stubs.** `raise NotImplementedError` is not found anywhere in
    `personal_assistant`. Then remove the `except NotImplementedError`
    branch from `execute()` in `main.py`: it was needed only while the
-   commands were being written.
+   commands were being written. After that the word
+   `NotImplementedError` is nowhere in the package.
 2. **Clean install.** In an empty folder outside the project:
 
    ```bash
    python -m venv check-env
    source check-env/bin/activate          # Windows: check-env\Scripts\activate
-   pip install git+https://github.com/nekipa12/goit-pycore-final-team-project.git
+   pip install <path to the project folder>
    cd ~
    personal-assistant
    ```
 
-   The assistant starts from any folder.
+   The assistant starts from any folder. This checks your release
+   branch. After the release PR is merged, repeat the step once with the
+   `pip install git+https://...` line from the README.
 3. **All commands.** Go through the "Check it" part of every spec in
    this folder. Delete the data file before each one (overview,
    chapter 7). Include the second block of `contact-editing.md`: a wrong
-   new phone must leave the contact as it was.
+   new phone must leave the contact as it was. Also: after
+   `add-tag 1 shop`, the command `change-note 1 New text` keeps the tag
+   (`1: New text [shop]`).
 4. **Restart.** Leave with `exit`, start again: contacts and notes are
    still there. Do the same after closing the terminal window instead of
    `exit`.
@@ -41,6 +46,8 @@ product, the way the mentor will check it.
    No answer starts with `Unexpected error`.
 6. **README.** Every command from `help` is in the README and the other
    way round; the installation steps are the ones you have just done.
+   Chapter 2 of `00-overview.md` no longer says that commands are not
+   written yet.
 7. **Code.** `flake8 personal_assistant` reports nothing; every module,
    class and function has a docstring; no `print` for debugging or
    commented-out code is left.

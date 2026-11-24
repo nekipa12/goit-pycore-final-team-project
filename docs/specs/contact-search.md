@@ -58,7 +58,7 @@ Usage: find <text>
 
 Email, address and birthday are set by other cards, so this part of the
 check is done in the Python console (`python` in the project folder). It
-is required: only here a mistake with the birthday shows up.
+is required: a mistake with the birthday shows up only here.
 
 ```python
 >>> from personal_assistant.address_book import AddressBook, Record

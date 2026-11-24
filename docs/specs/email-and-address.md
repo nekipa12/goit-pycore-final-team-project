@@ -70,9 +70,16 @@ Enter a command: add-address John
 Usage: add-address <name> <address>
 ```
 
-If the program does not start and prints a long text with `SyntaxError`
-or `IndentationError`, its last lines name the file and the line with
-the typo. If a command prints `None`, the `return` line is missing.
+If something goes wrong:
+
+- the program does not start and prints a long text with `SyntaxError`,
+  `IndentationError` or `TabError`: its last lines name the file and the
+  line with the mistake (`TabError`: the editor put a Tab instead of 4
+  spaces);
+- a command prints `None`: the `return` line is missing;
+- a command still answers `This command is not implemented yet.`: the
+  file is not saved, the assistant was not started again, or the line
+  `raise NotImplementedError` is still there.
 
 A wrong email (`add-email John abc`) may still be accepted when you test.
 Checking the value is another card, `Add field validation`. When it is

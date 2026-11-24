@@ -19,6 +19,11 @@ in the dictionary `COMMANDS` (file `personal_assistant/registry.py`). For
 every command there is a pair: the function and the usage line. `help`
 goes through this dictionary and builds the text.
 
+Two finished pieces of code do something similar; only look at them.
+`show_all` in `commands/contacts.py` goes through `.values()` and joins
+lines with `"\n".join`. `execute` in `main.py` takes one pair apart:
+`handler, usage = COMMANDS[command]`.
+
 Steps:
 
 1. Change the existing import line at the top of the file so that it
@@ -26,7 +31,7 @@ Steps:
    Do not add a second import line.
 2. In `show_help` start the list of lines:
    `lines = ["Available commands:"]`
-3. Write the loop exactly so:
+3. Write the loop exactly like this:
    `for handler, usage in COMMANDS.values():`
    Every value is a pair: the function (`handler`) and its usage line.
 4. Inside the loop take the description, which is the first line of the
@@ -82,11 +87,16 @@ writing them.
 
 If something goes wrong:
 
+- `help` still answers `This command is not implemented yet.`: the file
+  is not saved, the assistant was not started again, or the line
+  `raise NotImplementedError` is still there;
 - `too many values to unpack`: `.values()` is missing in the loop line;
+- `name 'COMMANDS' is not defined`: step 1 is not done;
+- `has no attribute '_doc_'`: `__doc__` has two underscores on each side;
 - only the first two lines are printed: `return` is inside the loop;
 - the program does not start and prints `SyntaxError` or
   `IndentationError`: the last lines of that text name the line with the
-  typo.
+  mistake.
 
 ## Not in this task
 

@@ -20,21 +20,23 @@ heading.
 
 1. **Start and exit**: how to start (`personal-assistant`; if it was
    installed into a virtual environment, that environment must be
-   active), what the prompt looks like, how to leave (`exit` or `close`),
-   and a small table of the general commands `hello`, `help`,
-   `exit` / `close`.
+   active), what the prompt looks like (`Enter a command: `), how to
+   leave (`exit` or `close`), and a small table of the general commands
+   `hello`, `help`, `exit` or `close`.
 2. **Rules of input**, as a short list:
    - a command is typed in one line: the command, then its values,
      separated by spaces; extra words at the end are ignored;
-   - a name is one word, and letter case matters (`John` and `john` are
-     two contacts);
-   - a phone is 10 digits, e.g. `0501234567`;
-   - a date is `DD.MM.YYYY`, e.g. `24.08.1991`; a birthday is a date from
-     01.01.1900 to today;
+   - a name is one word with at least one letter, and letter case
+     matters (`John` and `john` are two contacts);
+   - a phone is 10 digits, for example `0501234567`;
+   - a date is `DD.MM.YYYY`, for example `24.08.1991`; a birthday is a
+     date from 01.01.1900 to today;
    - an email looks like `name@example.com`;
    - an address and a note text may have several words;
-   - a note is addressed by its number, which `all-notes` shows;
-   - a tag is one word and is kept in lower case;
+   - a note is chosen by its number, which `all-notes` shows;
+   - a tag is one word and is kept in lower case; tags are separated by
+     spaces (a comma after a tag is dropped) and are shown in
+     alphabetical order;
    - search ignores letter case and finds a part of a word.
 3. **Contacts**: a table with three columns: the command, what it does,
    an example. One row for every contact command. Say that
@@ -63,9 +65,13 @@ How to write it:
   commands that are not there.
 - You do not have to wait for the other cards. Most commands do not work
   in your branch yet, so write the example session by hand from the
-  answers in chapter 6. Say above it which day is "today", because
-  `birthdays` depends on it: on 24.11.2026 a contact born on 27.11.1990
-  gives `27.11.2026 (Friday): John` for `birthdays 7`.
+  answers in chapter 6. If the other cards are already merged when you
+  start, type the session for real and copy the answers.
+- Say above the session which day is "today", because `birthdays`
+  depends on it: on 24.11.2026 a contact born on 27.11.1990 gives
+  `27.11.2026 (Friday): John` for `birthdays 7`. Tags are printed in
+  alphabetical order: after `add-tag 1 shop birthday` the note shows
+  `[birthday, shop]`.
 - In the tables put `delete` and `delete-note` last and choose examples
   that work when typed one after another.
 - A table row looks like
@@ -77,7 +83,7 @@ How to write it:
 
 - Before the commit look at the preview in your editor (VS Code:
   Ctrl+Shift+V). After the push open `README.md` on GitHub in your
-  branch: the tables and the code blocks are drawn correctly.
+  branch: the tables and the code blocks are shown correctly.
 - Every command from chapter 6 of the overview is in your tables, with
   the same usage line.
 - The examples use correct values: 10-digit phones, `DD.MM.YYYY` dates.

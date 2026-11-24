@@ -17,13 +17,15 @@ duplicates, in alphabetical order. `str(note)` already prints them.
 
 **Model, `notebook.py`**
 
-- `Note.add_tags(tags)` gets the words as typed (`args[1:]`). It makes
-  every tag lower case, skips a tag the note already has (also one typed
-  twice in the same command) and sorts `self.tags` at the end. The
-  command does none of this itself.
+- `Note.add_tags(tags)` gets the words as typed (`args[1:]`). For every
+  word it removes commas at the ends (`tag.strip(",")`: people type
+  `work, home`) and makes it lower case. It skips an empty tag and a tag
+  the note already has (also one typed twice in the same command), and
+  sorts `self.tags` at the end. The command does none of this itself.
 - `NoteBook.find_by_tag(tag)`: the notes that have this tag. The whole
-  tag must be equal, letter case is ignored. The notes come in the order
-  they have in the notebook: do not sort.
+  tag must be equal, letter case is ignored. Commas are not removed
+  here: `find-tag` takes one tag. The notes come in the order they have
+  in the notebook: do not sort.
 - `NoteBook.sorted_by_tags()`: a new list of all notes ordered by their
   lists of tags. Lists are compared the way Python compares lists: by
   the first tag, then by the second, and so on, so `[home]` goes before
@@ -62,7 +64,7 @@ Enter a command: add-tag 1 Shop birthday
 Tags added to note 1.
 Enter a command: add-tag 3 money
 Tags added to note 3.
-Enter a command: add-tag 3 money home HOME
+Enter a command: add-tag 3 money, home, HOME
 Tags added to note 3.
 Enter a command: all-notes
 1: Buy a present for John [birthday, shop]
@@ -98,5 +100,6 @@ Usage: add-tag <id> <tag> [tag...]
 ## Not in this task
 
 Removing or renaming tags, checking the characters of a tag (any word is
-a tag), tags for contacts, a list of all tags, search by several tags at
-once.
+a tag), a special alphabet for tags that are not English (plain `sort()`
+is enough), tags for contacts, a list of all tags, search by several
+tags at once.
