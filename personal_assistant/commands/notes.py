@@ -21,13 +21,16 @@ def show_notes(args, book, notes):
 @command("change-note <id> <new text>")
 def change_note(args, book, notes):
     """Replace the text of a note."""
-    raise NotImplementedError
+    note = notes.find(args[0])
+    note.text = " ".join(args[1:])
+    return f"Note {note.id} updated."
 
 
 @command("delete-note <id>")
 def delete_note(args, book, notes):
     """Delete a note."""
-    raise NotImplementedError
+    note = notes.delete(args[0])
+    return f"Note {note.id} deleted."
 
 
 @command("find-note <text>")

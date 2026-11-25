@@ -47,7 +47,9 @@ class NoteBook(UserDict):
 
     def delete(self, note_id: str) -> Note:
         """Delete the note with this ID and return it."""
-        raise NotImplementedError
+        note = self.find(note_id)
+        del self.data[note.id]
+        return note
 
     def search(self, text: str) -> list[Note]:
         """Return the notes that contain ``text``."""
