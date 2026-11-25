@@ -33,11 +33,21 @@ class Record:
 
     def edit_phone(self, old_phone: str, new_phone: str) -> None:
         """Replace the phone ``old_phone`` with ``new_phone``."""
-        raise NotImplementedError
+        old = self.find_phone(old_phone)
+        if old is None:
+            raise ValueError(f"Phone {old_phone} not found.")
+        new = Phone(new_phone)
+        existing = self.find_phone(new.value)
+        if existing is not None and existing is not old:
+            raise ValueError(f"Phone {new} already exists.")
+        self.phones[self.phones.index(old)] = new
 
     def remove_phone(self, phone: str) -> None:
         """Remove the phone number from the contact."""
-        raise NotImplementedError
+        stored = self.find_phone(phone)
+        if stored is None:
+            raise ValueError(f"Phone {phone} not found.")
+        self.phones.remove(stored)
 
     def add_email(self, email: str) -> None:
         """Set the email; a new value replaces the old one."""
@@ -84,7 +94,8 @@ class AddressBook(UserDict):
 
     def delete(self, name: str) -> None:
         """Delete the contact called ``name``."""
-        raise NotImplementedError
+        self.find(name)
+        del self.data[name]
 
     def search(self, text: str) -> list[Record]:
         """Return the contacts that have ``text`` in any of their fields."""
