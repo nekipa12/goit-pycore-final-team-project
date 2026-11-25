@@ -14,7 +14,11 @@ class Note:
 
     def add_tags(self, tags: list[str]) -> None:
         """Add the tags that the note does not have yet."""
-        raise NotImplementedError
+        for tag in tags:
+            tag = tag.strip(",").lower()
+            if tag and tag not in self.tags:
+                self.tags.append(tag)
+        self.tags.sort()
 
     def __str__(self) -> str:
         """Return the note as one line: the ID, the text and the tags."""
@@ -57,8 +61,10 @@ class NoteBook(UserDict):
 
     def find_by_tag(self, tag: str) -> list[Note]:
         """Return the notes that have the tag."""
-        raise NotImplementedError
+        tag = tag.lower()
+        return [note for note in self.data.values() if tag in note.tags]
 
     def sorted_by_tags(self) -> list[Note]:
         """Return all notes sorted by their tags."""
-        raise NotImplementedError
+        return sorted(self.data.values(),
+                      key=lambda note: (not note.tags, note.tags))
