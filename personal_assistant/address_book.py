@@ -99,7 +99,15 @@ class AddressBook(UserDict):
 
     def search(self, text: str) -> list[Record]:
         """Return the contacts that have ``text`` in any of their fields."""
-        raise NotImplementedError
+        needle = text.lower()
+        found = []
+        for record in self.data.values():
+            fields = [record.name, *record.phones, record.email,
+                      record.address, record.birthday]
+            if any(field is not None and needle in str(field).lower()
+                   for field in fields):
+                found.append(record)
+        return found
 
     def upcoming_birthdays(self, days: int) -> list[tuple[date, Record]]:
         """Return (date, contact) pairs for birthdays in the next ``days``."""
