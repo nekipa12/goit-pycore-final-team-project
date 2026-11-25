@@ -28,16 +28,19 @@ def show_all(args, book, notes):
 @command("change <name> <old phone> <new phone>")
 def change_phone(args, book, notes):
     """Replace a phone number."""
-    raise NotImplementedError
+    book.find(args[0]).edit_phone(args[1], args[2])
+    return "Contact updated."
 
 
 @command("remove-phone <name> <phone>")
 def remove_phone(args, book, notes):
     """Remove a phone number."""
-    raise NotImplementedError
+    book.find(args[0]).remove_phone(args[1])
+    return "Phone removed."
 
 
 @command("delete <name>")
 def delete_contact(args, book, notes):
     """Delete a contact."""
-    raise NotImplementedError
+    book.delete(args[0])
+    return "Contact deleted."
