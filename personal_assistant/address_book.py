@@ -103,4 +103,20 @@ class AddressBook(UserDict):
 
     def upcoming_birthdays(self, days: int) -> list[tuple[date, Record]]:
         """Return (date, contact) pairs for birthdays in the next ``days``."""
-        raise NotImplementedError
+        today = date.today()
+        result = []
+        for record in self.data.values():
+            if record.birthday is None:
+                continue
+            born = record.birthday.value
+            for year in (today.year, today.year + 1):
+                try:
+                    birthday = born.replace(year=year)
+                except ValueError:
+                    birthday = date(year, 3, 1)
+                if birthday >= today:
+                    break
+            if (birthday - today).days <= days:
+                result.append((birthday, record))
+        result.sort(key=lambda pair: pair[0])
+        return result
