@@ -57,7 +57,9 @@ class NoteBook(UserDict):
 
     def search(self, text: str) -> list[Note]:
         """Return the notes that contain ``text``."""
-        raise NotImplementedError
+        text = text.lower()
+        return [note for note in self.data.values()
+                if text in note.text.lower()]
 
     def find_by_tag(self, tag: str) -> list[Note]:
         """Return the notes that have the tag."""
