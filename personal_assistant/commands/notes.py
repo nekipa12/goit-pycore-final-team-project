@@ -33,4 +33,7 @@ def delete_note(args, book, notes):
 @command("find-note <text>")
 def find_notes(args, book, notes):
     """Find notes by text."""
-    raise NotImplementedError
+    found = notes.search(" ".join(args))
+    if not found:
+        return "No notes found."
+    return "\n".join(str(note) for note in found)
