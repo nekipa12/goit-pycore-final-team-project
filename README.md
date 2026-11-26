@@ -88,7 +88,8 @@ An unknown command gets the answer
 - A tag is one word and is kept in lower case. Tags are separated by
   spaces (a comma after a tag is dropped) and are shown in alphabetical
   order.
-- Search ignores letter case and finds a part of a word.
+- Search ignores letter case. `find` and `find-note` also find a part
+  of a word; `find-tag` needs the whole tag.
 
 If a value is wrong, the assistant says what is wrong and changes
 nothing, for example

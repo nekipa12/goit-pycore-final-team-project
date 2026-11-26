@@ -35,9 +35,6 @@ def execute(
         return f"Usage: {usage}"
     try:
         return handler(args, book, notes)
-    except NotImplementedError:
-        # The command is declared, but its card is not merged yet.
-        return "This command is not implemented yet."
     except ValueError as error:
         # The user's mistake: the message already says what is wrong.
         return str(error)
