@@ -17,31 +17,28 @@ package.
 We keep it simple on purpose: only the standard library, only what was
 studied in the course, and only the commands listed below.
 
-## 2. What is already in `main`
+## 2. What is in `main`
 
-The base is a working program. `hello`, `add`, `all`, `add-note`,
-`all-notes` and `exit`/`close` work, and the data is saved after every
+Every command of chapter 6 works, and the data is saved after every
 command to `.personal_assistant/data.pkl` in your home folder.
 
-Every other command is already declared: its usage line, its function
-and its description are in place, and the body is
-`raise NotImplementedError`. The same is true for the methods of the
-classes. **A task is "replace these bodies with real code".** Until a
-command is written, the program answers
-`This command is not implemented yet.` to it.
+We built it card by card. The template declared every command and every
+method of the classes with the body `raise NotImplementedError`, and
+each card replaced the bodies of its own functions, so two people never
+changed the same lines. This is where each part lives:
 
 ```
 personal_assistant/
-  __init__.py          the package                                       (finished)
-  __main__.py          starts main() for `python -m personal_assistant`  (finished)
-  main.py              the loop: read a command, run it, print, save     (finished)
-  registry.py          the table of commands, the @command decorator     (finished)
-  storage.py           load_data() and save_data(): one pickle file      (finished)
+  __init__.py          the package
+  __main__.py          starts main() for `python -m personal_assistant`
+  main.py              the loop: read a command, run it, print, save
+  registry.py          the table of commands, the @command decorator
+  storage.py           load_data() and save_data(): one pickle file
   fields.py            Field, Name, Phone, Email, Address, Birthday
   address_book.py      Record and AddressBook
   notebook.py          Note and NoteBook
   commands/
-    __init__.py        imports the modules below                         (finished)
+    __init__.py        imports the modules below
     general.py         hello, help
     contacts.py        add, all, change, remove-phone, delete
     details.py         add-email, add-address
@@ -51,18 +48,10 @@ personal_assistant/
     tags.py            add-tag, find-tag, sort-notes
 ```
 
-Every card lists its files and, inside a file, its functions. Nobody
-else works there, so two people never change the same lines. To keep it
-that way:
+When you change something:
 
-- Do not change the files marked "finished".
-- Do not change usage lines, function names, parameters or docstrings.
-  `help` prints the first line of a handler's docstring.
-- If you need a helper function, put it right above the function that
-  uses it, never at the end of a file.
-- Do not add imports: every file already imports what its cards need.
-  The two exceptions are written in `field-validation.md` and
-  `help-command.md`.
+- Keep usage lines, function names, parameters and docstrings as they
+  are: `help` prints the first line of a handler's docstring.
 - Do not add attributes to `Record`, `Note` or the books and do not
   rename classes or modules: the saved data file depends on them.
 

@@ -14,12 +14,13 @@ It can:
 - save everything to your home folder, so nothing is lost between runs.
 
 This is the final team project of the GoIT course "Python Programming:
-Foundations and Best Practices".
+Foundations and Best Practices 2.0".
 
 ## How to install
 
-You need Python 3.10 or newer. The assistant uses only the Python
-standard library. On macOS and Linux type `python3` instead of `python`.
+You need Python 3.10 or newer and Git. The assistant uses only the
+Python standard library. On macOS and Linux type `python3` instead of
+`python`.
 
 ```bash
 python -m venv .venv
@@ -88,7 +89,8 @@ An unknown command gets the answer
 - A tag is one word and is kept in lower case. Tags are separated by
   spaces (a comma after a tag is dropped) and are shown in alphabetical
   order.
-- Search ignores letter case and finds a part of a word.
+- Search ignores letter case. `find` and `find-note` also find a part
+  of a word; `find-tag` needs the whole tag.
 
 If a value is wrong, the assistant says what is wrong and changes
 nothing, for example
@@ -133,7 +135,8 @@ nothing, for example
 
 ### Example session
 
-Today is 24.11.2026, so the birthday on 27.11 is 3 days ahead.
+Today is 24.11.2026, so the birthday on 27.11 is 3 days ahead. On
+another day, give John a birthday three days after your today.
 
 ```text
 Welcome to the assistant bot! Type 'help' to see all commands.
