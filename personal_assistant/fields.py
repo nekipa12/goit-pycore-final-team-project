@@ -70,12 +70,13 @@ class Birthday(Field):
 
     def __init__(self, value: str) -> None:
         """Turn the text DD.MM.YYYY into a date."""
+        message = "Invalid date. Use DD.MM.YYYY, for example 24.08.1991."
+        if not re.fullmatch(r"[0-9]{2}\.[0-9]{2}\.[0-9]{4}", value):
+            raise ValueError(message)
         try:
             birthday = datetime.strptime(value, "%d.%m.%Y").date()
         except ValueError:
-            raise ValueError(
-                "Invalid date. Use DD.MM.YYYY, for example 24.08.1991."
-            )
+            raise ValueError(message)
         if not date(1900, 1, 1) <= birthday <= date.today():
             raise ValueError("Birthday must be between 01.01.1900 and today.")
         super().__init__(birthday)
